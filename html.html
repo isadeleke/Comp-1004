@@ -1,17 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>The Greatest of all time "Leo Messi"</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background: #1f1f1f;
+            padding: 20px;
+        }
+        nav a {
+            color: #ffffff;
+            margin: 0 15px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .hero {
+            margin: 50px;
+        }
+        .btn {
+            background: #ff9800;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container {
+            background: #1f1f1f;
+            padding: 20px;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 10px;
+            text-align: left;
+            display: none;
+        }
+        .form-container input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 60%;
+            background: #ff9800;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        footer {
+            background: #1f1f1f;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        @media (max-width: 600px) {
+            .hero {
+                margin: 20px;
+            }
+            nav a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+    <script>
+        function showRegisterForm() {
+            document.getElementById('register').style.display = 'block';
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('hero').style.display = 'none';
+        }
+
+        function showLoginForm() {
+            document.getElementById('login').style.display = 'block';
+            document.getElementById('register').style.display = 'none';
+            document.getElementById('hero').style.display = 'none';
+        }
+
+        function returnHome() {
+            document.getElementById('register').style.display = 'none';
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('hero').style.display = 'block';
+        }
+
+        function validateLogin(event) {
+            event.preventDefault();
+            let username = document.getElementById('login-username').value;
+            let password = document.getElementById('login-password').value;
+            
+            if (username === "" || password === "") {
+                alert("Username and Password cannot be empty.");
+                return;
+            }
+            
+            alert("Login successful!");
+        }
+
+        function validatePasswordStrength(password) {
+            let strengthMessage = "Weak Password";
+            let strengthColor = "red";
+            
+            if (password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[^A-Za-z0-9]/.test(password)) {
+                strengthMessage = "Strong Password";
+                strengthColor = "green";
+            } else if (password.length >= 6) {
+                strengthMessage = "Medium Password";
+                strengthColor = "orange";
+            }
+            
+            let strengthIndicator = document.getElementById("password-strength");
+            strengthIndicator.textContent = strengthMessage;
+            strengthIndicator.style.color = strengthColor;
+        }
+    </script>
 </head>
 <body>
- <h1>The early career of Leo messi</h1>
- <p>leo messi is an Argentine player who was born in Rosario, argentina. Barcelona invited him
- to come to spain for a trail with la masia academy in 2005 and
- the rest is history as he has been the main figure for the club and
- secured them victory in the Uefa champions league in 4 different occasion </p>
- <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwi_itz6q9mJAxWSQkEAHczQKvEQFnoECDgQAQ&url=https%3A%2F%2Fwww.biography.com%2Fathletes%2Flionel-messi&usg=AOvVaw2bxai73CHllzDWcpAgHhPR&opi=89978449">Learn more about leo Messi</a>
- <img src="messi.jpg" alt="The great Leo Messi" width="400" height="300">
+    <header>
+        <h1>Password Manager</h1>
+        <nav>
+            <a href="#" onclick="returnHome()">Home</a>
+            <a href="#" onclick="showLoginForm()">Login</a>
+            <a href="#" onclick="showRegisterForm()">Register</a>         
+        </nav>
+    </header>
+    
+    <section id="hero" class="hero">
+        <h2>Securely Store Your Passwords</h2>
+        <p>Manage all your passwords in one place with encryption.</p>
+        <button class="btn" onclick="showRegisterForm()">Get Started</button>
+    </section>
+    
+    <section id="login" class="form-container">
+        <h2>Login</h2>
+        <form onsubmit="validateLogin(event)">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" required>
+            
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+    </section>
+    
+    <section id="register" class="form-container">
+        <h2>Register</h2>
+        <form>
+            <label for="register-username">Username</label>
+            <input type="text" id="register-username" required>
+            
+            <label for="register-email">Email</label>
+            <input type="email" id="register-email" required>
+            
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" required onkeyup="validatePasswordStrength(this.value)">
+            <p id="password-strength">Weak Password</p>
+            
+            <button type="submit">Register</button>
+        </form>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Password Manager. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
