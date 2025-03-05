@@ -26,7 +26,7 @@
     </section>
     
     <!-- Login Form -->
-    <section id="login" class="form-container">
+    <section id="login" class="form-container" style="display: none;">
         <h2>Login</h2>
         <form onsubmit="validateLogin(event)">
             <label for="login-username">Username</label>
@@ -40,9 +40,9 @@
     </section>
     
     <!-- Register Form -->
-    <section id="register" class="form-container">
+    <section id="register" class="form-container" style="display: none;">
         <h2>Register</h2>
-        <form>
+        <form onsubmit="registerUser(event)">
             <label for="register-username">Username</label>
             <input type="text" id="register-username" required>
             
@@ -58,7 +58,7 @@
     </section>
 
     <!-- Password Manager -->
-    <section id="password-manager" class="form-container">
+    <section id="password-manager" class="form-container" style="display: none;">
         <h2>Saved Passwords</h2>
 
         <!-- Search Bar -->
