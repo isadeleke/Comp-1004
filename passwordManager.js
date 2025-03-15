@@ -115,6 +115,12 @@ function savePassword() {
     let site = document.getElementById("site").value;
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
+    let loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (!loggedInUser) {
+        alert("You must be logged in to save passwords.");
+        return;
+    }
 
     if (!site || !username || !password) {
         alert("All fields are required!");
@@ -122,9 +128,15 @@ function savePassword() {
     }
 
     let encryptedPassword = encryptPassword(password);
-    let passwords = JSON.parse(localStorage.getItem("passwords")) || [];
-    passwords.push({ site, username, password: encryptedPassword });
-    localStorage.setItem("passwords", JSON.stringify(passwords));
+    let userPasswords = JSON.parse(localStorage.getItem("passwords")) || {};
+
+    if (!userPasswords[loggedInUser]) {
+        userPasswords[loggedInUser] = []; // Initialize if user has no saved passwords
+    }
+
+    userPasswords[loggedInUser].push({ site, username, password: encryptedPassword });
+
+    localStorage.setItem("passwords", JSON.stringify(userPasswords));
 
     alert("Password saved successfully!");
     loadPasswords();
