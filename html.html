@@ -6,19 +6,25 @@
     <title>Password Manager</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script src="passwordManager.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+   
 </head>
 <body>
     <header>
         <h1>Password Manager</h1>
         <nav>
             <a href="#" onclick="returnHome()">Home</a>
-            <a href="#" onclick="showLoginForm()">Login</a>
-            <a href="#" onclick="showRegisterForm()">Register</a>  
-            <a href="#" id="logout" style="display:none;" onclick="logout()">Logout</a>       
+            <a href="#" id="login-btn" onclick="showLoginForm()">Login</a>
+            <!--<a href="#" onclick="showRegisterForm()">Register</a>  -->
+            <a href="#" id="logout" style="display: none;" onclick="logout()">Logout</a>
+            <button id="logout" onclick="logout()" style="display: none;">Logout</button>
+            <button id="theme-toggle">🌙 Dark Mode</button>
+
+       
         </nav>
     </header>
-    
+    <div class="main-content"> <!-- This pushes the footer down --> 
     <section id="hero" class="hero">
         <h2>Securely Store Your Passwords</h2>
         <p>Manage all your passwords in one place with encryption.</p>
@@ -26,14 +32,14 @@
     </section>
     
     <!-- Login Form -->
-    <section id="login" class="form-container" style="display: none;">
+    <section id="login-section" class="form-container" style="display: none;"> 
         <h2>Login</h2>
         <form onsubmit="validateLogin(event)">
             <label for="login-username">Username</label>
-            <input type="text" id="login-username" required>
+            <input type="text" id="login-username"placeholder="Enter your username" required>
             
             <label for="login-password">Password</label>
-            <input type="password" id="login-password" required>
+            <input type="password" id="login-password" placeholder="Enter your password" required>
             
             <button type="submit">Login</button>
         </form>
@@ -57,16 +63,35 @@
         </form>
     </section>
 
-    <!-- Password Manager -->
-    <section id="password-manager" class="form-container" style="display: none;">
-        <h2>Saved Passwords</h2>
+    <!-- pop up menu after login-->
+    <!-- Dashboard Section -->
+    <!-- Dashboard Section -->
+<section id="dashboard-section" class="form-container" style="display: none;">
+    <h2>Welcome to Your Password Manager</h2>
+    <div style="margin-top: 20px;">
+    <button onclick="showSection('store-password-section')">Store a New Password</button>
+    </div>
 
-        <!-- Search Bar -->
-        <input type="text" id="search-box" placeholder="Search website..." onkeyup="searchPasswords()">
-        <button onclick="searchPasswords()">Search</button>
+    <div style="margin-top: 20px;">
+    <button onclick="showSection('retrieve-password-section')">Retrieve Saved Passwords</button>
+    </div>
+    <!-- Export and Import Password Buttons -->
+    <div style="margin-top: 20px;">
+        <button onclick="exportPasswords()">Export Passwords 🔒</button>
 
-        <!-- Password Input Form -->
-        <form onsubmit="savePassword(); return false;">
+        <!-- File Input for Import (hidden visually, triggered by button) -->
+    </div>
+    <div style="margin-top: 20px;">
+        <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importPasswords()">
+        <button onclick="document.getElementById('importFile').click()">Import Passwords 📥</button>
+        <input type="file" id="importFile" style="display: none;" onchange="importPasswords()">
+    </div>
+</section>
+
+     <!-- Store Password Section -->
+     <section id="store-password-section"class="form-container" style="display:none"> 
+        <h2>Store a New Password</h2>
+        <form onsubmit="savePassword(event)">
             <label for="site">Website Name</label>
             <input type="text" id="site" required>
 
@@ -78,8 +103,15 @@
             
             <button type="submit">Save Password</button>
         </form>
+        <button onclick="showSection('dashboard-section')">Back to Dashboard</button>
+    </section>
 
-        <!-- Passwords Table -->
+    <!-- Retrieve Passwords Section -->
+    <section id="retrieve-password-section" style="display: none;">
+        <h2>Saved Passwords</h2>
+        <input type="text" id="search-box" placeholder="Search website..." onkeyup="searchPasswords()">
+        <button onclick="searchPasswords()">Search</button>
+
         <table>
             <thead>
                 <tr>
@@ -91,10 +123,14 @@
             </thead>
             <tbody id="passwordList"></tbody>
         </table>
-    </section>
+        
 
+        <button onclick="showSection('dashboard-section')">Back to Dashboard</button>
+    </section>
+</div> <!-- End of .main-content -->
     <footer>
         <p>&copy; 2025 Password Manager. All Rights Reserved.</p>
     </footer>
+    <script src="test.js" defer></script>
 </body>
 </html>
