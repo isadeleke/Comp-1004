@@ -21,33 +21,23 @@ function returnHome() {
     document.getElementById('password-manager').style.display = 'none';
     document.getElementById('hero').style.display = 'block';
 }
+// Register User
 function registerUser(event) {
     event.preventDefault();
-
-    let username = document.getElementById('register-username').value;
-    let password = document.getElementById('register-password').value;
-
-    if (!username || !password) {
-        alert("All fields are required!");
+    if (localStorage.getItem("user")) {
+        alert("Only one user allowed on this system!");
         return;
     }
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let username = document.getElementById("register-username").value;
+    let password = document.getElementById("register-password").value;
 
-    // Check if username already exists
-    if (users.some(user => user.username === username)) {
-        alert("Username already taken. Please choose another.");
-        return;
-    }
 
-    // Encrypt the password before saving
-    let encryptedPassword = encryptPassword(password);
-    users.push({ username, password: encryptedPassword });
+    // Encrypt password and store user
+    let encryptedPassword = CryptoJS.AES.encrypt(password, "mySecretKey").toString();
+    localStorage.setItem("user", JSON.stringify({ username, password: encryptedPassword }));
 
-    // Save users to localStorage
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Registration successful! You can now log in.");
+    alert("Registration successful! Please log in.");
     showLoginForm();
 }
 // Validate Login
