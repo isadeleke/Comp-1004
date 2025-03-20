@@ -1,3 +1,31 @@
+/*  Light & Dark Mode Variables */
+:root {
+    /* Light Mode Colors */
+    --background-light: #f9f9f9;
+    --text-light: #333;
+    --header-light: #ffffff;
+    --form-light: #ffffff;
+    --button-light: #ff9800;
+    --button-hover-light: #e68900;
+    --table-light: #fff;
+    --table-header-light: #ff9800;
+
+    /* Dark Mode Colors */
+    --background-dark: #121212;
+    --text-dark: #ffffff;
+    --header-dark: #1f1f1f;
+    --form-dark: #1f1f1f;
+    --button-dark: #ff9800;
+    --button-hover-dark: #e68900;
+    --table-dark: #222;
+    --table-header-dark: #ff9800;
+}
+
+
+
+
+
+
 /* General Styles */
 body {
     background-color: #121212;
