@@ -43,20 +43,37 @@ function registerUser(event) {
 // Validate Login
 function validateLogin(event) {
     event.preventDefault();
-    
-    let username = document.getElementById('login-username').value;
-    let password = document.getElementById('login-password').value;
 
-    if (!username || !password) {
-        alert("Username and Password cannot be empty.");
+    let username = document.getElementById("login-username").value;
+    let password = document.getElementById("login-password").value;
+
+    let storedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (!storedUser) {
+        alert("No registered user found! Please register first.");
+        showRegisterForm();
         return;
     }
 
-    localStorage.setItem("loggedInUser", username);
-    alert("Login successful!");
-    showPasswordManager();
-}
+    let decryptedPassword = CryptoJS.AES.decrypt(storedUser.password, "mySecretKey").toString(CryptoJS.enc.Utf8);
 
+    if (username === storedUser.username && password === decryptedPassword) {
+        sessionStorage.setItem("loggedIn", "true");
+        alert("Login successful!");
+        /*document.getElementById("hero").style.display = "none";
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block'; // Show Dashboard*/
+        document.getElementById("logout").style.display = "inline";
+        document.getElementById("login-btn").style.display = "none";
+        document.getElementById("home-btn").style.display = "none";
+
+        
+        showSection("dashboard-section");
+        //document.getElementById("logout-btn").style.display = "block";
+    } else {
+        alert("Invalid credentials!");
+    }
+}
 // Show Password Manager
 function showPasswordManager() {
     document.getElementById('password-manager').style.display = 'block';
