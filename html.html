@@ -14,7 +14,7 @@
     <header>
         <h1>Password Manager</h1>
         <nav>
-            <a href="#" onclick="returnHome()">Home</a>
+            <a href="#" id="home-btn" onclick="returnHome()">Home</a>
             <a href="#" id="login-btn" onclick="showLoginForm()">Login</a>
             <!--<a href="#" onclick="showRegisterForm()">Register</a>  -->
             <a href="#" id="logout" style="display: none;" onclick="logout()">Logout</a>
@@ -68,23 +68,25 @@
     <!-- Dashboard Section -->
 <section id="dashboard-section" class="form-container" style="display: none;">
     <h2>Welcome to Your Password Manager</h2>
+    <!-- File Input for Import (hidden visually, triggered by button) -->
     <div style="margin-top: 20px;">
-    <button onclick="showSection('store-password-section')">Store a New Password</button>
+        <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importPasswords(event)">
+        <button onclick="document.getElementById('importFile').click()">Import Passwords 📥</button>
+        <input type="file" id="importFile" style="display: none;" onchange="importPasswords(event)">
     </div>
-
+    <!-- retrieve password button -->
     <div style="margin-top: 20px;">
     <button onclick="showSection('retrieve-password-section')">Retrieve Saved Passwords</button>
     </div>
-    <!-- Export and Import Password Buttons -->
+    <!-- store a new password button -->
     <div style="margin-top: 20px;">
-        <button onclick="exportPasswords()">Export Passwords 🔒</button>
+        <button onclick="showSection('store-password-section')">Store a New Password</button>
+       
 
-        <!-- File Input for Import (hidden visually, triggered by button) -->
+        <!-- Button to export password -->
     </div>
     <div style="margin-top: 20px;">
-        <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importPasswords()">
-        <button onclick="document.getElementById('importFile').click()">Import Passwords 📥</button>
-        <input type="file" id="importFile" style="display: none;" onchange="importPasswords()">
+        <button onclick="exportPasswords()">Export Passwords 🔒</button>
     </div>
 </section>
 
