@@ -76,12 +76,19 @@ function validateLogin(event) {
 }
 // Show Password Manager
 function showPasswordManager() {
-    document.getElementById('password-manager').style.display = 'block';
-    document.getElementById('login').style.display = 'none';
+    if (sessionStorage.getItem("loggedIn") !== "true") {
+        alert("Please log in first!");
+        showSection("login-section");
+        return;
+    }
+
+    showSection("retrieve-password-section");
+    document.getElementById('login-section').style.display = 'none';
     document.getElementById('hero').style.display = 'none';
     document.getElementById('logout').style.display = 'block';
-    loadPasswords();
+    updatePasswordList();; // Load saved passwords
 }
+
 
 //password strength checker
 function validatePasswordStrength(password) {
