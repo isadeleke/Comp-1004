@@ -157,29 +157,38 @@ function savePassword() {
 }
 
 // Load Passwords
-function loadPasswords() {
+function updatePasswordList() {
     let passwordList = document.getElementById("passwordList");
+    let tableHeader = document.querySelector("table thead");
+    let storedPasswords = JSON.parse(localStorage.getItem("passwords")) || [];
+
+    // Clear previous content
     passwordList.innerHTML = "";
 
-    let passwords = JSON.parse(localStorage.getItem("passwords")) || [];
-
-    passwords.forEach((item, index) => {
-        let decryptedPassword = decryptPassword(item.password);
-        let row = `
-            <tr>
-                <td>${item.site}</td>
-                <td>${item.username}</td>
-                <td><span id="password-${index}" class="hidden-password">********</span>
-                    <button onclick="togglePassword(${index}, '${decryptedPassword}')">Show</button>
-                </td>
-                <td>
-                    <button onclick="copyPassword('${decryptedPassword}')">Copy</button>
-                    <button onclick="deletePassword(${index})">Delete</button>
-                </td>
-            </tr>
-        `;
-        passwordList.innerHTML += row;
-    });
+    if (storedPasswords.length === 0) {
+        tableHeader.style.display = "none"; // Hide table header if no passwords exist
+        passwordList.innerHTML = `<tr><td colspan="4">No saved passwords available.</td></tr>`;
+    } else {
+        tableHeader.style.display = "table-header-group"; // Show header if passwords exist
+        storedPasswords.forEach((entry, index) => {
+            let decryptedPassword = CryptoJS.AES.decrypt(entry.password, "mySecretKey").toString(CryptoJS.enc.Utf8);
+            let row = ` 
+                <tr>
+                    <td>${entry.site}</td>
+                    <td>${entry.username}</td>
+                    <td>
+                        <span id="password-${index}" class="hidden-password">********</span>
+                        <button onclick="togglePassword(${index}, '${decryptedPassword}')">Show</button>
+                    </td>
+                    <td>
+                        <button onclick="copyPassword('${decryptedPassword}')">Copy</button>
+                        <button onclick="deletePassword(${index})">Delete</button>
+                    </td>
+                </tr>
+            `;
+            passwordList.innerHTML += row;
+        });
+    }
 }
 
 // Toggle Password Visibility
