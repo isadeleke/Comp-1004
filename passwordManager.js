@@ -207,7 +207,11 @@ function copyPassword(password) {
 // Delete Password
 function deletePassword(index) {
     let passwords = JSON.parse(localStorage.getItem("passwords")) || [];
-    passwords.splice(index, 1);
-    localStorage.setItem("passwords", JSON.stringify(passwords));
-    loadPasswords();
+    
+    if (confirm("Are you sure you want to delete this password?")) {
+        passwords.splice(index, 1);
+        localStorage.setItem("passwords", JSON.stringify(passwords));
+        //loadPasswords(); // Refresh the table
+        updatePasswordList(); // Refresh table
+    }
 }
