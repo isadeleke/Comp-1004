@@ -14,12 +14,18 @@ function showLoginForm() {
     document.getElementById('hero').style.display = 'none';
 }
 
-// Return Home
 function returnHome() {
     document.getElementById('register').style.display = 'none';
-    document.getElementById('login').style.display = 'none';
-    document.getElementById('password-manager').style.display = 'none';
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('dashboard-section').style.display = 'none';
+    document.getElementById('store-password-section').style.display = 'none';
+    document.getElementById('retrieve-password-section').style.display = 'none';
     document.getElementById('hero').style.display = 'block';
+    
+     // Clear login form fields when returning home
+     document.getElementById("login-username").value = "";
+     document.getElementById("login-password").value = "";
+    
 }
 // Register User
 function registerUser(event) {
