@@ -131,35 +131,29 @@ function decryptPassword(encryptedPassword) {
     return bytes.toString(CryptoJS.enc.Utf8);
 }
 
-function savePassword() {
-    let site = document.getElementById("site").value;
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
-    let loggedInUser = localStorage.getItem("loggedInUser");
+function savePassword(event) {
+    event.preventDefault();
 
-    if (!loggedInUser) {
-        alert("You must be logged in to save passwords.");
-        return;
+    const site = document.getElementById("site").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    const currentUser = sessionStorage.getItem("username");
+    const encryptionKey = sessionStorage.getItem("key");
+
+    let allPasswords = JSON.parse(localStorage.getItem("passwords")) || {};
+    if (!allPasswords[currentUser]) {
+        allPasswords[currentUser] = [];
     }
 
-    if (!site || !username || !password) {
-        alert("All fields are required!");
-        return;
-    }
+    const encryptedPassword = CryptoJS.AES.encrypt(password, encryptionKey).toString();
 
-    let encryptedPassword = encryptPassword(password);
-    let userPasswords = JSON.parse(localStorage.getItem("passwords")) || {};
+    allPasswords[currentUser].push({ site, username, password: encryptedPassword });
 
-    if (!userPasswords[loggedInUser]) {
-        userPasswords[loggedInUser] = []; // Initialize if user has no saved passwords
-    }
+    localStorage.setItem("passwords", JSON.stringify(allPasswords));
 
-    userPasswords[loggedInUser].push({ site, username, password: encryptedPassword });
-
-    localStorage.setItem("passwords", JSON.stringify(userPasswords));
-
-    alert("Password saved successfully!");
-    loadPasswords();
+    alert("Password saved!");
+    showSection("dashboard-section");
 }
 
 // Load Passwords
