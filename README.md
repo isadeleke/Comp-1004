@@ -1,2 +1,2 @@
 # Comp-1004
-Creating a single page application with a javascript named passwordManager.js and a css file named styles.css which are included in my hmtl file named html.html
+Creating a single page application serving the purpose of a password manager where user can simplify thier numerous password to other application in just a single account and access whenever they need to.This project will have essential files need to run the SPA which includes a javascript named passwordManager.js and a css file named styles.css which are both scripted in the hmtl file named html.html
