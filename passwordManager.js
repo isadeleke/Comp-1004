@@ -1,8 +1,8 @@
 // Show Register Form
 function showRegisterForm() {
     document.getElementById('register').style.display = 'block';
-    document.getElementById('login').style.display = 'none';
-    document.getElementById('password-manager').style.display = 'none';
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('dashboard-section').style.display = 'none';
     document.getElementById('hero').style.display = 'none';
 }
 
