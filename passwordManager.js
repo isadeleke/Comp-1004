@@ -215,3 +215,29 @@ function deletePassword(index) {
         updatePasswordList(); // Refresh table
     }
 }
+function showSection(sectionId) {
+    const sections = [
+        "hero",
+        "login-section",
+        "register",
+        "dashboard-section",
+        "store-password-section",
+        "retrieve-password-section"
+    ];
+
+    sections.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+            section.style.display = (id === sectionId) ? "block" : "none";
+        }
+    });
+
+    // Save the last viewed section in sessionStorage
+    sessionStorage.setItem("lastSection", sectionId);
+
+    // Also control visibility of login/register/logout links
+    //const loggedIn = sessionStorage.getItem("loggedIn") === "true";
+    //document.querySelector("nav a[onclick='showLoginForm()']").style.display = loggedIn ? "none" : "inline";
+    //document.querySelector("nav a[onclick='showRegisterForm()']").style.display = loggedIn ? "none" : "inline";
+    //document.getElementById("logout").style.display = loggedIn ? "inline" : "none";
+}
