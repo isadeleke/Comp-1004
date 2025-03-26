@@ -241,3 +241,36 @@ function showSection(sectionId) {
     //document.querySelector("nav a[onclick='showRegisterForm()']").style.display = loggedIn ? "none" : "inline";
     //document.getElementById("logout").style.display = loggedIn ? "inline" : "none";
 }
+function checkLoginStatus() {
+    let loggedIn = sessionStorage.getItem("loggedIn") || localStorage.getItem("loggedIn");
+    let logoutButton = document.getElementById("logout");
+    let loginLink = document.querySelector("nav a[href='#'][onclick='showLoginForm()']");
+    let registerLink = document.querySelector("nav a[href='#'][onclick='showRegisterForm()']");
+
+    if (loggedIn === "true") {
+        // Hide login & register links
+        document.querySelector("nav a[href='#'][onclick='showLoginForm()']").style.display = "none";
+        //document.querySelector("nav a[href='#'][onclick='showRegisterForm()']").style.display = "none";
+        
+        // Show logout button
+        document.getElementById("logout").style.display = "inline";
+        
+
+        // Redirect to dashboard
+        showSection("dashboard-section");
+    } else {
+        showSection("hero");
+        // Show login & register links
+        //document.querySelector("nav a[href='#'][onclick='showLoginForm()']").style.display = "inline";
+        //document.querySelector("nav a[href='#'][onclick='showRegisterForm()']").style.display = "inline";
+
+        // Redirect to login section
+        document.getElementById("login-btn").style.display = "inline";
+
+        // Hide logout button
+        document.getElementById("logout").style.display = "none";
+
+        
+        
+    }
+}
