@@ -274,3 +274,54 @@ function checkLoginStatus() {
         
     }
 }
+function exportPasswords() {
+    const passwords = JSON.parse(localStorage.getItem("passwords")) || [];
+
+    if (passwords.length === 0) {
+        alert("No passwords to export!");
+        return;
+    }
+
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    let enteredPassword;
+
+    while (true) {
+        enteredPassword = prompt("Enter your account password to export passwords (Cancel to abort):");
+        
+        if (enteredPassword === null) { // User clicked Cancel
+            alert("Password export cancelled.");
+            return;
+        }
+
+        try {
+            const decryptedStoredPassword = CryptoJS.AES.decrypt(storedUser.password, "mySecretKey").toString(CryptoJS.enc.Utf8);
+
+            if (enteredPassword === decryptedStoredPassword) {
+                break; // Correct password, proceed
+            } else {
+                alert("Incorrect password! Please try again.");
+            }
+        } catch (e) {
+            alert("Incorrect password or corrupted data! Please try again.");
+        }
+    }
+
+    // Encrypt passwords clearly with the user's entered password before export for security
+    const encryptedPasswords = CryptoJS.AES.encrypt(JSON.stringify(passwords), enteredPassword).toString();
+
+    const data = { passwords: encryptedPasswords };
+    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "encrypted_passwords.json";// allow user to download JSON file
+    a.click();
+    URL.revokeObjectURL(url);
+
+    // Clear passwords after successful export clearly
+    localStorage.removeItem("passwords"); 
+    alert("Passwords exported successfully and cleared from local storage!");
+
+    updatePasswordList();
+}
