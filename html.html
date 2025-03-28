@@ -18,7 +18,7 @@
             <a href="#" id="login-btn" onclick="showLoginForm()">Login</a>
             <!--<a href="#" onclick="showRegisterForm()">Register</a>  -->
             <a href="#" id="logout" style="display: none;" onclick="logout()">Logout</a>
-            <button id="logout" onclick="logout()" style="display: none;">Logout</button>
+            <!--<button id="logout" onclick="logout()" style="display: none;">Logout</button>-->
             <button id="theme-toggle">🌙 Dark Mode</button>
 
        
@@ -91,7 +91,7 @@
 </section>
 
      <!-- Store Password Section -->
-     <section id="store-password-section"class="form-container" style="display:none"> 
+     <section id="store-password-section" style="display:none"> 
         <h2>Store a New Password</h2>
         <form onsubmit="savePassword(event)">
             <label for="site">Website Name</label>
@@ -103,7 +103,7 @@
             <label for="password">Password</label>
             <input type="password" id="password" required>
             
-            <button type="submit">Save Password</button>
+            <button type="submit" id ="save-password-btn">Save Password</button>
         </form>
         <button onclick="showSection('dashboard-section')">Back to Dashboard</button>
     </section>
@@ -133,6 +133,6 @@
     <footer>
         <p>&copy; 2025 Password Manager. All Rights Reserved.</p>
     </footer>
-    <script src="test.js" defer></script>
+    <script src="passwordManager.js" defer></script>
 </body>
 </html>
