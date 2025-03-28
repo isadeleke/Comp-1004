@@ -325,3 +325,59 @@ function exportPasswords() {
 
     updatePasswordList();
 }
+function importPasswords(event) {
+    const file = event.target.files[0];
+
+    if (!file) {
+        alert("No file selected!");
+        return;
+    }
+
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    let enteredPassword;
+
+    while (true) {
+        enteredPassword = prompt("Enter your account password to import passwords (Cancel to abort):");
+        
+        if (enteredPassword === null) { // user clicked Cancel
+            alert("Password import cancelled.");
+            event.target.value = "";
+            return;
+        }
+
+        try {
+            const decryptedStoredPassword = CryptoJS.AES.decrypt(storedUser.password, "mySecretKey").toString(CryptoJS.enc.Utf8);
+
+            if (enteredPassword === decryptedStoredPassword) {
+                break; // Correct password entered, proceed
+            } else {
+                alert("Incorrect password! Please try again.");
+            }
+        } catch (e) {
+            alert("Incorrect password or corrupted data! Please try again.");
+        }
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const importedData = JSON.parse(e.target.result);
+            const decryptedPasswords = JSON.parse(CryptoJS.AES.decrypt(importedData.passwords, enteredPassword).toString(CryptoJS.enc.Utf8));
+
+            if (!Array.isArray(decryptedPasswords)) {
+                throw new Error("Invalid file format");
+            }
+
+            localStorage.setItem("passwords", JSON.stringify(decryptedPasswords));
+
+            alert("Passwords imported successfully!");
+            updatePasswordList();
+        } catch (error) {
+            alert("Import failed: Incorrect password or corrupted file!");
+        }
+
+        event.target.value = "";
+    };
+
+    reader.readAsText(file);
+}
