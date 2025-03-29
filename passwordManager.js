@@ -381,3 +381,33 @@ function importPasswords(event) {
 
     reader.readAsText(file);
 }
+window.onload = function () {
+    const loggedIn = sessionStorage.getItem("loggedIn") === "true";
+    const lastSection = sessionStorage.getItem("lastSection");
+
+     // Update nav bar
+     if (loggedIn) {
+        document.getElementById("login-btn").style.display = "none";
+        //document.getElementById("nav-register").style.display = "none";
+        document.getElementById("logout").style.display = "inline";
+    } else {
+        document.getElementById("login-btn").style.display = "inline";
+        //document.getElementById("nav-register").style.display = "inline";
+        document.getElementById("logout").style.display = "none";
+    }
+    document.getElementById("home-btn").style.display = loggedIn ? "none" : "inline";
+
+    // Restore section
+    if (loggedIn && lastSection) {
+        showSection(lastSection);
+    } else {
+        showSection("hero");
+    }
+
+    // 🧠 Update navbar links correctly
+    document.getElementById("login-btn").style.display = loggedIn ? "none" : "inline";
+    //document.getElementById("nav-register").style.display = loggedIn ? "none" : "inline";
+    document.getElementById("logout").style.display = loggedIn ? "inline" : "none";
+
+    updatePasswordList(); // optional
+};
