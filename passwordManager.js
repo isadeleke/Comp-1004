@@ -145,11 +145,33 @@ function validatePasswordStrength(password) {
     strengthIndicator.style.color = strengthColor;
 }
 
-// Logout
+// To make sure user should export before logging out of their account
 function logout() {
-    localStorage.removeItem("loggedInUser");
-    alert("You have been logged out.");
-    returnHome();
+    const passwords = JSON.parse(localStorage.getItem("passwords")) || [];
+
+    if (passwords.length > 0) {
+        alert("Please export your passwords first for security!");
+        showSection("retrieve-password-section");
+        return; // Do not logout until passwords are exported.
+    }
+
+    localStorage.removeItem("loggedIn");
+    sessionStorage.removeItem("loggedIn");
+    sessionStorage.removeItem("lastSection");
+    alert("You have logged out successfully.");
+
+    showSection("hero");
+
+    // Immediately update navigation clearly:
+    document.getElementById("logout").style.display = "none";
+    document.getElementById("login-btn").style.display = "inline";
+    document.getElementById("home-btn").style.display = "inline";
+
+    // Reset login form inputs clearly:
+    document.getElementById("login-username").value = "";
+    document.getElementById("login-password").value = "";
+
+    //returnHome();
 }
 
 // Save Password (AES Encryption)
