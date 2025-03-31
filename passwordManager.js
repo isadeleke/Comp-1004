@@ -8,10 +8,38 @@ function showRegisterForm() {
 
 // Show Login Form
 function showLoginForm() {
-    document.getElementById('login').style.display = 'block';
-    document.getElementById('register').style.display = 'none';
-    document.getElementById('password-manager').style.display = 'none';
-    document.getElementById('hero').style.display = 'none';
+    let loginSection = document.getElementById('login-section');
+    let registerSection = document.getElementById('register');
+    let passwordManager = document.getElementById('dashboard-section');
+    let heroSection = document.getElementById('hero');
+
+    //  Debugging - Check if elements exist before changing their styles
+    if (!loginSection) {
+        console.error("Error: 'login-section' not found in the document.");
+        return; // Stop execution if element doesn't exist
+    }
+
+    if (!registerSection) {
+        console.error("Error: 'register' section not found.");
+    }
+
+    if (!passwordManager) {
+        console.error("Error: 'password-manager' section not found.");
+    }
+
+    if (!heroSection) {
+        console.error("Error: 'hero' section not found.");
+    }
+
+    //  Now safely change visibility
+    loginSection.style.display = 'block';
+    if (registerSection) registerSection.style.display = 'none';
+    if (passwordManager) passwordManager.style.display = 'none';
+    if (heroSection) heroSection.style.display = 'none';
+
+     // Clear login form fields when returning home
+     document.getElementById("login-username").value = "";
+     document.getElementById("login-password").value = "";
 }
 
 function returnHome() {
