@@ -58,20 +58,23 @@ function returnHome() {
 // Register User
 function registerUser(event) {
     event.preventDefault();
-    if (localStorage.getItem("user")) {
-        alert("Only one user allowed on this system!");
+
+    const username = document.getElementById("register-username").value.trim();
+    const password = document.getElementById("register-password").value.trim();
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if (users.find(user => user.username === username)) {
+        alert("Username already exists!");
         return;
     }
 
-    let username = document.getElementById("register-username").value;
-    let password = document.getElementById("register-password").value;
+    const encryptedPassword = CryptoJS.AES.encrypt(password, "mySecretKey").toString();
+    users.push({ username, password: encryptedPassword });
 
+    localStorage.setItem("users", JSON.stringify(users));
 
-    // Encrypt password and store user
-    let encryptedPassword = CryptoJS.AES.encrypt(password, "mySecretKey").toString();
-    localStorage.setItem("user", JSON.stringify({ username, password: encryptedPassword }));
-
-    alert("Registration successful! Please log in.");
+    alert("Registration successful!");
     showLoginForm();
 }
 // Validate Login
