@@ -464,3 +464,28 @@ window.onload = function () {
 
     updatePasswordList(); // optional
 };
+
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggle = document.getElementById("theme-toggle");
+    const body = document.body;
+
+    // Load saved theme from localStorage
+    if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark-mode");
+        themeToggle.textContent = "☀️ Light Mode";
+    }
+
+    themeToggle.addEventListener("click", function () {
+        body.classList.toggle("dark-mode");
+
+        // Save user preference to localStorage
+        if (body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+            themeToggle.textContent = "☀️ Light Mode";
+        } else {
+            localStorage.setItem("theme", "light");
+            themeToggle.textContent = "🌙 Dark Mode";
+        }
+    });
+});
+
