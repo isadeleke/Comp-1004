@@ -380,48 +380,54 @@ function exportPasswords() {
 }
 function importPasswords(event) {
     const file = event.target.files[0];
-
     if (!file) {
         alert("No file selected!");
         return;
     }
 
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const currentUser = sessionStorage.getItem("username");
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find(u => u.username === currentUser);
+
+    if (!user) {
+        alert("User not found!");
+        return;
+    }
+
     let enteredPassword;
 
     while (true) {
-        enteredPassword = prompt("Enter your account password to import passwords (Cancel to abort):");
-        
-        if (enteredPassword === null) { // user clicked Cancel
-            alert("Password import cancelled.");
+        enteredPassword = prompt("Enter your account password to import:");
+        if (enteredPassword === null) {
+            alert("Import cancelled.");
             event.target.value = "";
             return;
         }
 
-        try {
-            const decryptedStoredPassword = CryptoJS.AES.decrypt(storedUser.password, "mySecretKey").toString(CryptoJS.enc.Utf8);
+        const decryptedStoredPassword = CryptoJS.AES.decrypt(user.password, "mySecretKey").toString(CryptoJS.enc.Utf8);
+        if (enteredPassword === decryptedStoredPassword) break;
 
-            if (enteredPassword === decryptedStoredPassword) {
-                break; // Correct password entered, proceed
-            } else {
-                alert("Incorrect password! Please try again.");
-            }
-        } catch (e) {
-            alert("Incorrect password or corrupted data! Please try again.");
-        }
+        alert("Incorrect password. Try again.");
     }
 
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
         try {
             const importedData = JSON.parse(e.target.result);
-            const decryptedPasswords = JSON.parse(CryptoJS.AES.decrypt(importedData.passwords, enteredPassword).toString(CryptoJS.enc.Utf8));
+            const decryptedPasswords = JSON.parse(
+                CryptoJS.AES.decrypt(importedData.passwords, enteredPassword).toString(CryptoJS.enc.Utf8)
+            );
 
-            if (!Array.isArray(decryptedPasswords)) {
-                throw new Error("Invalid file format");
+            if (!Array.isArray(decryptedPasswords)) throw new Error("Decryption failed");
+
+            // Merge with existing
+            let allPasswords = JSON.parse(localStorage.getItem("passwords")) || {};
+            if (!Array.isArray(allPasswords[currentUser])) {
+                allPasswords[currentUser] = [];
             }
 
-            localStorage.setItem("passwords", JSON.stringify(decryptedPasswords));
+            allPasswords[currentUser] = allPasswords[currentUser].concat(decryptedPasswords);
+            localStorage.setItem("passwords", JSON.stringify(allPasswords));
 
             alert("Passwords imported successfully!");
             updatePasswordList();
@@ -433,6 +439,7 @@ function importPasswords(event) {
     };
 
     reader.readAsText(file);
+    showSection("retrieve-password-section");
 }
 window.onload = function () {
     const loggedIn = sessionStorage.getItem("loggedIn") === "true";
