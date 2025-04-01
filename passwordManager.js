@@ -210,40 +210,46 @@ function savePassword(event) {
 }
 
 // Load Passwords
-function updatePasswordList() {
-    let passwordList = document.getElementById("passwordList");
-    let tableHeader = document.querySelector("table thead");
-    let storedPasswords = JSON.parse(localStorage.getItem("passwords")) || [];
 
-    // Clear previous content
+function updatePasswordList() {
+    const currentUser = sessionStorage.getItem("username");
+    const encryptionKey = sessionStorage.getItem("key");
+    const allPasswords = JSON.parse(localStorage.getItem("passwords")) || {};
+    const userPasswords = allPasswords[currentUser] || [];
+
+    const passwordList = document.getElementById("passwordList");
+    const tableHeader = document.querySelector("table thead");
+
     passwordList.innerHTML = "";
 
-    if (storedPasswords.length === 0) {
-        tableHeader.style.display = "none"; // Hide table header if no passwords exist
+    if (userPasswords.length === 0) {
+        tableHeader.style.display = "none";
         passwordList.innerHTML = `<tr><td colspan="4">No saved passwords available.</td></tr>`;
-    } else {
-        tableHeader.style.display = "table-header-group"; // Show header if passwords exist
-        storedPasswords.forEach((entry, index) => {
-            let decryptedPassword = CryptoJS.AES.decrypt(entry.password, "mySecretKey").toString(CryptoJS.enc.Utf8);
-            let row = ` 
-                <tr>
-                    <td>${entry.site}</td>
-                    <td>${entry.username}</td>
-                    <td>
-                        <span id="password-${index}" class="hidden-password">********</span>
-                        <button onclick="togglePassword(${index}, '${decryptedPassword}')">Show</button>
-                    </td>
-                    <td>
-                        <button onclick="copyPassword('${decryptedPassword}')">Copy</button>
-                        <button onclick="deletePassword(${index})">Delete</button>
-                    </td>
-                </tr>
-            `;
-            passwordList.innerHTML += row;
-        });
+        return;
     }
-}
 
+    tableHeader.style.display = "table-header-group";
+
+    userPasswords.forEach((entry, index) => {
+        const decryptedPassword = CryptoJS.AES.decrypt(entry.password, encryptionKey).toString(CryptoJS.enc.Utf8);
+
+        const row = `
+            <tr>
+                <td>${entry.site}</td>
+                <td>${entry.username}</td>
+                <td>
+                    <span id="password-${index}" class="hidden-password">********</span>
+                    <button onclick="togglePassword(${index}, '${decryptedPassword}')">Show</button>
+                </td>
+                <td>
+                    <button onclick="copyPassword('${decryptedPassword}')">Copy</button>
+                    <button onclick="deletePassword(${index})">Delete</button>
+                </td>
+            </tr>
+        `;
+        passwordList.innerHTML += row;
+    });
+}
 // Toggle Password Visibility
 function togglePassword(index, password) {
     let passwordSpan = document.getElementById(`password-${index}`);
