@@ -498,3 +498,35 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+function deleteAccount() {
+    const username = sessionStorage.getItem("username");
+    if (!username) return;
+
+    const confirmDelete = confirm("Are you sure you want to permanently delete your account?");
+
+    if (!confirmDelete) return;
+
+    // Remove user from users list
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users = users.filter(user => user.username !== username);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // Remove passwords for this user
+    let passwords = JSON.parse(localStorage.getItem("passwords")) || {};
+    delete passwords[username];
+    localStorage.setItem("passwords", JSON.stringify(passwords));
+
+    // Remove login logs
+    let logs = JSON.parse(localStorage.getItem("loginLogs")) || {};
+    delete logs[username];
+    localStorage.setItem("loginLogs", JSON.stringify(logs));
+
+    sessionStorage.clear();
+    alert("Your account has been deleted.");
+    showSection("hero");
+
+    document.getElementById("logout").style.display = "none";
+    document.querySelector("nav a[onclick='showLoginForm()']").style.display = "inline";
+
+    document.querySelector("nav a[onclick='returnHome()']").style.display = "inline";
+}
