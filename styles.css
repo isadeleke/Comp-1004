@@ -21,7 +21,7 @@
     --table-header-dark: #ff9800;
 }
 
-*  Default Light Mode */
+/* 🌞 Default Light Mode */
 body {
     background-color: var(--background-light);
     color: var(--text-light);
@@ -32,15 +32,11 @@ body {
     transition: background 0.3s, color 0.3s;
 }
 
-/*  Dark Mode */
+/* 🌙 Dark Mode */
 body.dark-mode {
     background-color: var(--background-dark);
     color: var(--text-dark);
 }
-
-
-
-
 
 /*  Header */
 header {
@@ -57,7 +53,7 @@ body.dark-mode header {
     background: var(--header-dark);
 }
 
-/*  Navigation */
+/* 📌 Navigation */
 nav {
     display: flex;
     gap: 20px;
@@ -81,7 +77,7 @@ nav a:hover {
     color: #ff9800;
 }
 
-/*  Buttons */
+/* 📌 Buttons */
 button {
     background-color: var(--button-light);
     color: white;
@@ -120,6 +116,7 @@ body.dark-mode button:hover {
 #theme-toggle:hover {
     background: black;
 }
+
 /*  Login & Register Form Styling */
 .form-container {
     background: var(--form-light);
@@ -174,4 +171,266 @@ body.dark-mode .form-container input {
 
 .form-container input:focus {
     border: 2px solid #ff9800;
+}
+
+/*  Buttons */
+.form-container button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--button-light);
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+body.dark-mode .form-container button {
+    background-color: var(--button-dark);
+}
+
+.form-container button:hover {
+    background-color: var(--button-hover-light);
+    transform: scale(1.05);
+}
+
+body.dark-mode .form-container button:hover {
+    background-color: var(--button-hover-dark);
+}
+
+/*  Search Bar */
+#search-box {
+    width: 80%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    background: #e0e0e0;
+    color: black;
+    transition: background 0.3s;
+}
+
+body.dark-mode #search-box {
+    background: #2a2a2a;
+    color: white;
+}
+
+/*  Passwords Table */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: var(--table-light);
+    color: var(--text-light);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode table {
+    background: var(--table-dark);
+    color: var(--text-dark);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+    border-bottom: 2px solid var(--table-header-light);
+    transition: border-color 0.3s;
+}
+
+body.dark-mode th, body.dark-mode td {
+    border-bottom: 2px solid var(--table-header-dark);
+}
+
+th {
+    background-color: var(--table-header-light);
+    font-size: 18px;
+}
+
+body.dark-mode th {
+    background-color: var(--table-header-dark);
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+    transition: background 0.3s;
+}
+
+body.dark-mode tr:hover {
+    background-color: #444;
+}
+
+/*  Footer */
+/* Ensure the whole page stretches and the footer stays at the bottom */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content should expand to push the footer down */
+.main-content {
+    flex: 1;
+}
+
+/* Updated Footer Styles */
+footer {
+    background: var(--header-light);
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    transition: background 0.3s;
+}
+
+body.dark-mode footer {
+    background: var(--header-dark);
+}
+
+
+/*  Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        margin: 30px;
+    }
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav a {
+        margin: 10px 0;
+    }
+    button {
+        width: 100%;
+    }
+}
+
+/* Save Password Button */
+#save-password-btn {
+    width: 150px; 
+    font-size: 14px; 
+    padding: 8px 12px; 
+}
+/* Styling for "Store a New Password" Form Container */
+#store-password-section {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 500px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+#store-password-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form inputs styling */
+#store-password-section input[type="text"],
+#store-password-section input[type="password"] {
+    width: 90%;
+    padding: 12px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#store-password-section input[type="text"]:focus,
+#store-password-section input[type="password"]:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.2);
+}
+
+/* Button styling */
+#store-password-section button {
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#save-password-btn {
+    width: 180px;
+    padding: 10px;
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    font-size: 16px;
+}
+
+#save-password-btn:hover {
+    background-color: #fb8500;
+    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.5);
+}
+
+/* Back to Dashboard button styling */
+#store-password-section button[onclick="showSection('dashboard-section')"] {
+    width: 220px;
+    padding: 12px;
+    background-color: #eee;
+    color: #333;
+    border: none;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+#store-password-section button[onclick="showSection('dashboard-section')"]:hover {
+    background-color: #ddd;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+/* Dark Theme for "Store a New Password" Form Container */
+.dark-mode #store-password-section {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode #store-password-section h2 {
+    color: #ffffff;
+}
+
+/* Dark Theme Form Inputs */
+.dark-mode #store-password-section input[type="text"],
+.dark-mode #store-password-section input[type="password"] {
+    background-color: #444;
+    color: #ffffff;
+    border: 1px solid #555;
+}
+
+.dark-mode #store-password-section input[type="text"]:focus,
+.dark-mode #store-password-section input[type="password"]:focus {
+    border-color: #fb8500;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.4);
+}
+
+/* Dark Theme Button Styling */
+.dark-mode #save-password-btn {
+    background-color: #fb8500;
+}
+
+.dark-mode #save-password-btn:hover {
+    background-color: #ff9800;
+    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.5);
+}
+
+.dark-mode #store-password-section button[onclick="showSection('dashboard-section')"] {
+    background-color: #555;
+    color: #ffffff;
+}
+
+.dark-mode #store-password-section button[onclick="showSection('dashboard-section')"]:hover {
+    background-color: #666;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
 }
