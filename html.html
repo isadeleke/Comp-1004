@@ -6,7 +6,6 @@
     <title>Password Manager</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
    
 </head>
@@ -52,7 +51,7 @@
             <label for="register-username">Username</label>
             <input type="text" id="register-username" required>
             
-            <label for="register-email">Email</label>
+            <label for="register-email">Email(Optional)</label>
             <input type="email" id="register-email" required>
             
             <label for="register-password">Password</label>
@@ -88,6 +87,22 @@
     <div style="margin-top: 20px;">
         <button onclick="exportPasswords()">Export Passwords 🔒</button>
     </div>
+    
+    <div style="margin-top: 20px;">
+    <button id="delete-account-btn" onclick="deleteAccount()">Delete My Account</button>
+    </div>
+    <!-- Add this inside your dashboard section -->
+    <div style="margin-top: 20px;">
+        <button id="toggle-history-btn" onclick="toggleLoginHistory()">View Login History</button>
+        </div>
+    
+
+<div id="login-history-container" style="margin-top: 20px;">
+    <h3>Login History</h3>
+    <ul id="login-history-list"></ul>
+</div>
+
+
 </section>
 
      <!-- Store Password Section -->
