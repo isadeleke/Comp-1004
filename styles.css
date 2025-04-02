@@ -257,3 +257,122 @@ th {
 body.dark-mode th {
     background-color: var(--table-header-dark);
 }
+tr:hover {
+    background-color: #f5f5f5;
+    transition: background 0.3s;
+}
+
+body.dark-mode tr:hover {
+    background-color: #444;
+}
+
+/*  Footer */
+/* Ensure the whole page stretches and the footer stays at the bottom */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content should expand to push the footer down */
+.main-content {
+    flex: 1;
+}
+
+/* Updated Footer Styles */
+footer {
+    background: var(--header-light);
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    transition: background 0.3s;
+}
+
+body.dark-mode footer {
+    background: var(--header-dark);
+}
+
+
+/*  Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        margin: 30px;
+    }
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav a {
+        margin: 10px 0;
+    }
+    button {
+        width: 100%;
+    }
+}
+
+/* Save Password Button */
+#save-password-btn {
+    width: 150px; 
+    font-size: 14px; 
+    padding: 8px 12px; 
+}
+/* Styling for "Store a New Password" Form Container */
+#store-password-section {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 500px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+#store-password-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form inputs styling */
+#store-password-section input[type="text"],
+#store-password-section input[type="password"] {
+    width: 90%;
+    padding: 12px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#store-password-section input[type="text"]:focus,
+#store-password-section input[type="password"]:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.2);
+}
+
+/* Button styling */
+#store-password-section button {
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#save-password-btn {
+    width: 180px;
+    padding: 10px;
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    font-size: 16px;
+}
+
+#save-password-btn:hover {
+    background-color: #fb8500;
+    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.5);
+}
