@@ -376,3 +376,63 @@ body.dark-mode footer {
     background-color: #fb8500;
     box-shadow: 0 4px 10px rgba(255, 152, 0, 0.5);
 }
+
+/* Back to Dashboard button styling */
+#store-password-section button[onclick="showSection('dashboard-section')"] {
+    width: 220px;
+    padding: 12px;
+    background-color: #eee;
+    color: #333;
+    border: none;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+#store-password-section button[onclick="showSection('dashboard-section')"]:hover {
+    background-color: #ddd;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+/* Dark Theme for "Store a New Password" Form Container */
+.dark-mode #store-password-section {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode #store-password-section h2 {
+    color: #ffffff;
+}
+
+/* Dark Theme Form Inputs */
+.dark-mode #store-password-section input[type="text"],
+.dark-mode #store-password-section input[type="password"] {
+    background-color: #444;
+    color: #ffffff;
+    border: 1px solid #555;
+}
+
+.dark-mode #store-password-section input[type="text"]:focus,
+.dark-mode #store-password-section input[type="password"]:focus {
+    border-color: #fb8500;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.4);
+}
+
+/* Dark Theme Button Styling */
+.dark-mode #save-password-btn {
+    background-color: #fb8500;
+}
+
+.dark-mode #save-password-btn:hover {
+    background-color: #ff9800;
+    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.5);
+}
+
+.dark-mode #store-password-section button[onclick="showSection('dashboard-section')"] {
+    background-color: #555;
+    color: #ffffff;
+}
+
+.dark-mode #store-password-section button[onclick="showSection('dashboard-section')"]:hover {
+    background-color: #666;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
