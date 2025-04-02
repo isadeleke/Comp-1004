@@ -175,3 +175,85 @@ body.dark-mode .form-container input {
 .form-container input:focus {
     border: 2px solid #ff9800;
 }
+
+/*  Buttons */
+.form-container button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--button-light);
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+body.dark-mode .form-container button {
+    background-color: var(--button-dark);
+}
+
+.form-container button:hover {
+    background-color: var(--button-hover-light);
+    transform: scale(1.05);
+}
+
+body.dark-mode .form-container button:hover {
+    background-color: var(--button-hover-dark);
+}
+
+/*  Search Bar */
+#search-box {
+    width: 80%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    background: #e0e0e0;
+    color: black;
+    transition: background 0.3s;
+}
+
+body.dark-mode #search-box {
+    background: #2a2a2a;
+    color: white;
+}
+
+/*  Passwords Table */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: var(--table-light);
+    color: var(--text-light);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode table {
+    background: var(--table-dark);
+    color: var(--text-dark);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+    border-bottom: 2px solid var(--table-header-light);
+    transition: border-color 0.3s;
+}
+
+body.dark-mode th, body.dark-mode td {
+    border-bottom: 2px solid var(--table-header-dark);
+}
+
+th {
+    background-color: var(--table-header-light);
+    font-size: 18px;
+}
+
+body.dark-mode th {
+    background-color: var(--table-header-dark);
+}
