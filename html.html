@@ -6,6 +6,7 @@
     <title>Password Manager</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
    
 </head>
@@ -24,11 +25,32 @@
         </nav>
     </header>
     <div class="main-content"> <!-- This pushes the footer down --> 
-    <section id="hero" class="hero">
-        <h2>Securely Store Your Passwords</h2>
-        <p>Manage all your passwords in one place with encryption.</p>
-        <button class="btn" onclick="showRegisterForm()">Get Started</button>
-    </section>
+        <section id="hero" class="hero">
+            <div style="max-width: 800px; margin: auto; padding: 40px 20px; text-align: center;">
+              <h2 style="font-size: 32px; margin-bottom: 10px;">Securely Store Your Passwords</h2>
+              <p style="font-size: 18px; margin-bottom: 20px;">
+                Manage all your passwords in one safe and encrypted space.
+              </p>
+          
+              <button class="btn" style="padding: 12px 30px; font-size: 18px;" onclick="showRegisterForm()">
+                 Register an Account
+              </button>
+          
+              <ul style="list-style: none; margin-top: 30px; padding: 0; font-size: 16px; line-height: 1.8;">
+                <li> AES-256 Secure Encryption</li>
+                <li> Easy Import & Export Functionality</li>
+                <li> Seamless Dark & Light Mode Toggle</li>
+                <li> Offline Data Handling for Privacy</li>
+              </ul>
+          
+              <p style="margin-top: 25px;  font-size: 15px;">
+                Take control of your digital identity. Keep your login credentials safe from cloud-based threats and third-party breaches.
+              </p>
+          
+              <img src="images/secure-lock.png.jpg" alt="Secure Illustration" width="300" style="margin-top: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+            </div>
+          </section>
+          
     
     <!-- Login Form -->
     <section id="login-section" class="form-container" style="display: none;"> 
@@ -146,7 +168,7 @@
     </section>
 </div> <!-- End of .main-content -->
     <footer>
-        <p>&copy; 2025 Password Manager. All Rights Reserved.</p>
+        <p>&copy; 2025 Password Manager. All Rights Reserved. For more info, contact:  idowu.adeleke@students.plymouth.ac.uk</p>
     </footer>
     <script src="passwordManager.js" defer></script>
 </body>
