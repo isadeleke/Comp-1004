@@ -108,25 +108,6 @@ function showLoginForm() {
     let registerSection = document.getElementById('register');
     let passwordManager = document.getElementById('dashboard-section');
     let heroSection = document.getElementById('hero');
-
-    //  Debugging - Check if elements exist before changing their styles
-    if (!loginSection) {
-        console.error("Error: 'login-section' not found in the document.");
-        return; // Stop execution if element doesn't exist
-    }
-
-    if (!registerSection) {
-        console.error("Error: 'register' section not found.");
-    }
-
-    if (!passwordManager) {
-        console.error("Error: 'password-manager' section not found.");
-    }
-
-    if (!heroSection) {
-        console.error("Error: 'hero' section not found.");
-    }
-
     //  Now safely change visibility
     loginSection.style.display = 'block';
     if (registerSection) registerSection.style.display = 'none';
